@@ -192,6 +192,29 @@ Low-Impedance Output, 0.1 Ω for 1-mA Load
 Figure -08 Circuit diagram of interfacing an LM35  with ADC input pin 
 
 ## Kiel - Program 
+
+```
+#include<lpc214x.h>
+#include "LCD.h"
+#include "ADC.h"
+int main()
+{
+	IO1DIR=0xffffffff;
+	IO0DIR=0x00000000;
+	PINSEL0=0x0300;
+	VPBDIV=0x02;
+	lcd_init();
+	show(" ADC Value: ");
+	while(1){
+		cmd(0x8b);
+		val=adc(0,6);
+		dat((val/1000)+48);
+		dat(((val/100)%10)+48);
+		dat(((val/10)%10)+48);
+		dat((val%10)+48);
+	}
+}
+```
  
 ## Tabulations and graph 
 Calculation of sensitivity 
@@ -222,8 +245,13 @@ Temperature sensor LM35 is interfaced to LPC2148 and its output is measured
 
 ## Output screen shots :
 
+### Display Off:
+![image](https://user-images.githubusercontent.com/94154683/200317938-0b79ddd5-d491-44c7-8ab0-4318d08faa57.png)
 
+### Display On:
+![image](https://user-images.githubusercontent.com/94154683/200317850-24f34f6a-6075-4f0f-9a1f-23d3d91bba11.png)
 
-
+### Layout Diagram:
+![image](https://user-images.githubusercontent.com/94154683/200319418-507c4176-2571-47b6-87f7-b12ded31618a.png)
 
 
